@@ -8,6 +8,7 @@
 
 #import "HomeTableVC.h"
 #import "ConstraintControl.h"
+#import "FoldTableListVC.h"
 
 static NSString *reuseCell = @"listCell";
 
@@ -20,7 +21,7 @@ static NSString *reuseCell = @"listCell";
 - (NSArray *)dataList
 {
     if (_dataList == nil) {
-        _dataList = @[@"使用Autolayout动态修改复合型Cell-方法1"];
+        _dataList = @[@"使用Autolayout动态修改复合型Cell-方法1", @"折叠列表"];
         
     }
     return _dataList;
@@ -64,9 +65,23 @@ static NSString *reuseCell = @"listCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ConstraintControl *conVC = [[ConstraintControl alloc]init];
-    conVC.title = self.dataList[indexPath.row];
-    [self.navigationController pushViewController:conVC animated:YES];
+    switch (indexPath.row) {
+        case 0:{
+            ConstraintControl *conVC = [[ConstraintControl alloc]init];
+            conVC.title = self.dataList[indexPath.row];
+            [self.navigationController pushViewController:conVC animated:YES];
+            break;
+        }
+        case 1:{
+            FoldTableListVC *foldVC = [[FoldTableListVC alloc]initWithStyle:UITableViewStyleGrouped];
+            foldVC.title = self.dataList[indexPath.row];
+            [self.navigationController pushViewController:foldVC animated:YES];
+            break;
+        }
+        default:
+            break;
+    }
+    
 }
 
 
